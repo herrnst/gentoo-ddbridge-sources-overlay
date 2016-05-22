@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo quality="experimental" status="unofficial">
+    <name>gentoo-ddbridge-sources-overlay</name>
+    <description>Portage overlay for sys-kernel/ddbridge-sources (Digital Devices drivers integrated into the kernel tree)</description>
+    <homepage>https://github.com/herrnst/gentoo-ddbridge-sources-overlay/</homepage>
+    <source type="git">git://github.com/herrnst/gentoo-ddbridge-sources-overlay.git</source>
+  </repo>
+</repositories>
+
+
