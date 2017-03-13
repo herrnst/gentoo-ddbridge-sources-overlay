@@ -1,0 +1,52 @@
+commit 99ca3c7aabd842e960c3460fe8abdbf071da1bcc
+Author: Daniel Scheller <d.scheller@gmx.net>
+Date:   Tue Apr 5 22:20:23 2016 +0200
+
+    ddbridge: add Kconfig option to toggle the MSI option default
+
+diff --git a/drivers/media/pci/ddbridge/Kconfig b/drivers/media/pci/ddbridge/Kconfig
+index ddf2ab0..eed08a4 100644
+--- a/drivers/media/pci/ddbridge/Kconfig
++++ b/drivers/media/pci/ddbridge/Kconfig
+@@ -28,3 +28,18 @@ config DVB_DDBRIDGE
+ 	  - Max S8
+ 
+ 	  Say Y if you own such a card and want to use it.
++
++config DVB_DDBRIDGE_MSIENABLE
++	bool "Enable Message Signaled Interrupts (MSI) per default (EXPERIMENTAL)"
++	depends on DVB_DDBRIDGE
++	depends on PCI_MSI
++	default n
++	---help---
++	  Use PCI MSI (Message Signaled Interrupts) per default. Enabling this
++	  might lead to I2C errors originating from the bridge in conjunction
++	  with certain SATA controllers, requiring a reload of the ddbridge
++	  module. MSI can still be disabled by passing msi=0 as option, as
++	  this will just change the msi option default value.
++
++	  If you're unsure, concerned about stability and don't want to pass
++	  module options in case of troubles, say N.
+diff --git a/drivers/media/pci/ddbridge/ddbridge.c b/drivers/media/pci/ddbridge/ddbridge.c
+index ca43f6c..5ec4302 100644
+--- a/drivers/media/pci/ddbridge/ddbridge.c
++++ b/drivers/media/pci/ddbridge/ddbridge.c
+@@ -41,10 +41,18 @@ MODULE_PARM_DESC(adapter_alloc,
+ 
+ #ifdef CONFIG_PCI_MSI
+ #define DDB_USE_MSI_IRQHANDLERS
++#ifdef CONFIG_DVB_DDBRIDGE_MSIENABLE
+ static int msi = 1;
++#else
++static int msi = 0;
++#endif
+ module_param(msi, int, 0444);
+ MODULE_PARM_DESC(msi,
++#ifdef CONFIG_DVB_DDBRIDGE_MSIENABLE
+ 		 " Control MSI interrupts: 0-disable, 1-enable (default)");
++#else
++		 " Control MSI interrupts: 0-disable (default), 1-enable");
++#endif
+ #endif
+ 
+ #include "ddbridge-core.c"
