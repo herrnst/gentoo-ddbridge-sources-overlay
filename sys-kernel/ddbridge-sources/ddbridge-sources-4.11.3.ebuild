@@ -16,17 +16,17 @@ KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~spa
 HOMEPAGE="https://dev.gentoo.org/~mpagano/genpatches"
 IUSE="experimental dddvb-api-extra"
 
-DDBRIDGE_PATCHES_BASE_URI="https://github.com/herrnst/dddvb-linux-kernel/compare/v${KV_MAJOR}.${KV_MINOR}...v${KV_MAJOR}.${KV_MINOR}.0-ddbridge.diff -> linux-${KV_MAJOR}.${KV_MINOR}-ddbridge-base.patch"
-DDBRIDGE_PATCHES_EXTRA_URI="https://github.com/herrnst/dddvb-linux-kernel/compare/v${KV_MAJOR}.${KV_MINOR}.0-ddbridge...v${KV_MAJOR}.${KV_MINOR}.0-ddbridge-extra.diff -> linux-${KV_MAJOR}.${KV_MINOR}-ddbridge-extra.patch"
+DDBRIDGE_PATCHES_BASE_URI="https://github.com/herrnst/dddvb-linux-kernel/compare/v${KV_MAJOR}.${KV_MINOR}.3...v${KV_MAJOR}.${KV_MINOR}.3-ddbridge.diff -> linux-${KV_MAJOR}.${KV_MINOR}.3-ddbridge-base.patch"
+DDBRIDGE_PATCHES_EXTRA_URI="https://github.com/herrnst/dddvb-linux-kernel/compare/v${KV_MAJOR}.${KV_MINOR}.3-ddbridge...v${KV_MAJOR}.${KV_MINOR}.3-ddbridge-extra.diff -> linux-${KV_MAJOR}.${KV_MINOR}.3-ddbridge-extra.patch"
 
 DESCRIPTION="Full sources including the Gentoo patchset and Digital Devices drivers for the ${KV_MAJOR}.${KV_MINOR} kernel tree"
 SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${ARCH_URI} ${DDBRIDGE_PATCHES_BASE_URI} ${DDBRIDGE_PATCHES_EXTRA_URI}"
 
 src_unpack() {
-	UNIPATCH_LIST+=" "${DISTDIR}"/linux-${KV_MAJOR}.${KV_MINOR}-ddbridge-base.patch"
+	UNIPATCH_LIST+=" "${DISTDIR}"/linux-${KV_MAJOR}.${KV_MINOR}.3-ddbridge-base.patch"
 
 	if use dddvb-api-extra ; then
-		UNIPATCH_LIST+=" "${DISTDIR}"/linux-${KV_MAJOR}.${KV_MINOR}-ddbridge-extra.patch"
+		UNIPATCH_LIST+=" "${DISTDIR}"/linux-${KV_MAJOR}.${KV_MINOR}.3-ddbridge-extra.patch"
 	fi
 
 	kernel-2_src_unpack
